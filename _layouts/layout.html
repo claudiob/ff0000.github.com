@@ -22,10 +22,10 @@
 <div class="content">
 <div id="header">
   <a href="/">
-    <img src="http://www.gravatar.com/avatar/0a05a335175e456374126ac9820cde03.png" height="48" width="48" class="avatar" alt="FF0000 Avatar" />
+    <!--img src="http://www.gravatar.com/avatar/0a05a335175e456374126ac9820cde03.png" height="48" width="48" class="avatar" alt="FF0000 Avatar" /-->
   </a>
   <div id="byline">
-    <p>We are the web developers of <a href="http://ff0000.com">FF0000</a>.</p>
+    <p>We are the web developers of <a href="http://ff0000.com">Red Interactive Agency</a>.</p>
   </div>
   <div id="title"><a href="/">FF0000 Developers</a></div>
 </div>
@@ -37,15 +37,15 @@
   follow us on <a href="http://github.com/ff0000">github</a> and <a href="www.linkedin.com/company/red-interactive-agency">LinkedIn</a>. The source code for this blog is <a href="http://github.com/ff0000/ff0000.github.com">on github</a>.
 </div>
 
-<!--script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
 <script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15700422-1");
-pageTracker._trackPageview();
-} catch(err) {}</script-->
-
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21814163-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 </body>
 </html>
