@@ -13,7 +13,7 @@ We use our own pypeton application to create a Django project that matches our c
     ./pypeton fooapp
 
 
-This will create a *fooapp* folder with the default branches/tags/trunk folder for subversion. The trunk folder will contain a set of configuration folders and files and a Django project in the *project* folder.
+This will create a *fooapp* folder with the default branches/tags/trunk folder for subversion. The trunk folder will contain a set of configuration folders and files and a Django project in the *project* folder. Do not rename the *project* folder to the name of your project, if you do the fabric deploy scripts will not work.
 
 ## Installing requirements
 
