@@ -10,7 +10,7 @@ Frequently we need to create a Django project from scratch and push it on a prod
 
 We use our own pypeton application to create a Django project that matches our coding standard and set of requirements:
 
-    ./pypeton fooapp
+    ./pypeton -v -s fooapp
 
 
 This will create a *fooapp* folder with the default branches/tags/trunk folder for subversion. The trunk folder will contain a set of configuration folders and files and a Django project in the *project* folder. Do not rename the *project* folder to the name of your project, if you do the fabric deploy scripts will not work.
@@ -20,74 +20,99 @@ This will create a *fooapp* folder with the default branches/tags/trunk folder f
 The next step is to install the requirements for the project, with these commands:
 
     cd fooapp/trunk
-    virtualenv .
-    source bin/activate
-    bin/pip install -r deploy/requirements.txt
+    source activate
+    pip install -r deploy/requirements.txt
 
 ## Running the project in the browser
 
-The project already comes with a dummy application names *things*, a model with just a *name* and a *slug*. This application can be seen in a web browser by running:
+The project comes with an empty home-page which can be seen in a web browser by running:
 
     cd project
     python manage.py syncdb
-    python manage.py runserver 0.0.0.0:8000 --adminmedia=static/admin
+    ./ser
 
-and then opening [http://localhost:8000](http://localhost:8000) in a browser window.
+and then opening [http://localhost:8000/](http://localhost:8000/) in a browser window. `./ser` is a shortcut provided for the command "python manage.py runserver 0.0.0.0:8000" used frequently to start the local server.
 
 ## Loading fixtures
 
-The home page will show the view corresponding to the *list of things*, which is empty so far as we haven't entered any data. We can easily fix this by loading the fixtures that come with the application:
+The project also comes with an application named *initial_data*, a model that creates an *admin* user with password *admin* when in development mode and site called http://example.com:8000. The Django admin can be accessed by typing:
 
-    python manage.py loaddata test
+    python manage.py loaddata development
 
-and restarting the server, to see two sample things appearing in the home-page.
+and restarting the server and logging into [http://example.com:8000/admin](http://example.com:8000/admin) after having add example.com to the local hosts file.
 
-## Customizing the sample model
+Note that the admin/admin user is *not* included in the initial_data.json file, to prevent creating this user by mistake on production machines.
 
-We can customize the project and change *things* for something else. For instance, if our project needs a *movie* model rather than a *thing* one we simply replace any occurrence of thing, things and Thing in the model with movie, movies and Movie. We also have to rename the folders and files appropriately:
+## Creating a new model and application
 
-<!-- I need help here with the bash command -->
+A new model (e.g., called *Picture*) can be created with the command:
 
-Then we can edit the newly named model and add fields if required, for instance having the *run_time* field added to the Movie class in apps/movies/models.py:
+    ./sta Picture
 
-{% highlight python %}
-class Movie(models.Model):
-    name             = models.CharField(unique=True, max_length=255)
-    slug             = models.SlugField(unique=True, max_length=255)
-    run_time         = models.IntegerField(blank=True, null=True)
-{% endhighlight %}
+which extends the default "python manage.py startapp" command by delivering a coherent file structure and providing two basic views for index and show. To include this model in the application:
 
-Similarly, we have to update the test fixtures to reflect this change in apps/movies/fixtures/test.json:
+* add `'pictures',` to `INSTALLED_APPS` in settings.py, and
+* add `(r'^pictures/', include('pictures.urls'))` to `urlpatterns` in urls.py.
+* run `python manage.py syncdb` to add the model to the database
 
-{% highlight javascript %}
-[
-    {
-        "pk": 1, 
-        "model": "movies.movie", 
-        "fields": {
-            "name": "Strange Days", 
-            "slug": "strange-days", 
-            "run_time": "145" 
-        }
-    },
-    {
-        "pk": 2, 
-        "model": "movies.movie", 
-        "fields": {
-            "name": "My Life as a Dog", 
-            "slug": "my-life-as-a-dog", 
-            "run_time": "101" 
-        }
-    }
-]
-{% endhighlight %}
+At this point, all these new views become available:
 
-And then reload the database and relaunch the server:
+* http://example.com:8000/admin/pictures/picture/add/ (to add a picture)
+* http://example.com:8000/admin/pictures/picture/ (to admin the pictures)
+* http://example.com:8000/pictures/ (to show the list of pictures)
+* http://example.com:8000/pictures/1/ (to show one picture after its creation)
 
-    rm *.db
-    python manage.py syncdb
-    python manage.py loaddata test
-    python manage.py runserver 0.0.0.0:8000 --adminmedia=static/admin
+## Customizing the model
+
+The newly created model can be edited at will. For instance, the Picture model can be inherited by [Photologue](http://code.google.com/p/django-photologue/)'s ImageModel in order to have many image-related functions available. For this purpose:
+
+* add the following lines to deploy/requirements.txt:
+
+        pil                   # to use models.ImageField
+        # django-photologue   # to deal with image size, thumbnails
+        # The default photologue does not deal with thumbnail generation on CDN
+        -e git+git://github.com/ff0000/django-photologue@cumulus#egg=django-photologue
+
+* run the command `./req` to install the new requirements
+
+* add `'photologue',` to `INSTALLED_APPS` in settings.py
+
+* edit apps/pictures/models.py to begin as:
+
+    from django.db import models
+    from photologue.models import ImageModel
+    class Picture(ImageModel):
+
+* add `<img src="{{picture.image.url}}" />` to the content in templates/pictures/show.html
+
+## Resetting the database
+ 
+The next step is to adjust the database in order the include the Photologue fields into the Picture table. Django 1.2 does not provide this command, but this can be obtained by simply running:
+
+    ./syn development
+
+where `./syn` is a shortcut to:
+
+* reset the database structure 
+* synchronize it again with the latest models
+* optionally reload the fixtures for the specified environment (in this case, environment)
+
+At this point, the following views will allow to:
+
+* http://example.com:8000/admin/pictures/picture/add/ (add a picture with an attached image)
+* http://example.com:8000/pictures/1/ (see the attached image of the inserted picture)
+
+## Creating fixtures
+
+Whenever the `./syn` command is run, all the data in the database is deleted. The method not to lose data during a synchronization is using fixtures.
+
+For instance, after adding a Picture through the admin interface, this can be stored in a fixture running:
+
+    ./dum pictures development
+
+where `./dum` is a shortcut for `python manage.py dumpdata` to output the data with the right indentation in the specified environment.
+
+At this point, running `.syn development` again will reset the database and reload the images from the fixtures, without losing any data in the operation.
 
 ## Running the integration suite
 
