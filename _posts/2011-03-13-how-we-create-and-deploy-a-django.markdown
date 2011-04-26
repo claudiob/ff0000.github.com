@@ -1,16 +1,18 @@
 ---
 layout: post
-title: "How we create and deploy a Django project to the Rackspace cloud"
+title: "Creating and deploying Django to Rackspace"
 author: claudiob
 ---
 
-Frequently we need to create a Django project from scratch and push it on a production machine. This post explains how we have reduced the number of manual steps to achieve this goal.
+Frequently we need to create a Django project from scratch and push it on a production machine. This post explains how we have reduced the number of manual steps to achieve this goal. <!--more-->
 
 ## Creating the blank project
 
 We use our own pypeton application to create a Django project that matches our coding standard and set of requirements:
 
-    ./pypeton -v -s fooapp
+{% highlight bash %}
+./pypeton -v -s fooapp
+{% endhighlight %}
 
 
 This will create a *fooapp* folder with the default branches/tags/trunk folder for subversion. The trunk folder will contain a set of configuration folders and files and a Django project in the *project* folder. Do not rename the *project* folder to the name of your project, if you do the fabric deploy scripts will not work.
@@ -19,17 +21,21 @@ This will create a *fooapp* folder with the default branches/tags/trunk folder f
 
 The next step is to install the requirements for the project, with these commands:
 
-    cd fooapp/trunk
-    source activate
-    pip install -r deploy/requirements.txt
+{% highlight bash %}
+cd fooapp/trunk
+source activate
+pip install -r deploy/requirements.txt
+{% endhighlight %}
 
 ## Running the project in the browser
 
 The project comes with an empty home-page which can be seen in a web browser by running:
 
-    cd project
-    python manage.py syncdb
-    ./ser
+{% highlight bash %}
+cd project
+python manage.py syncdb
+./ser
+{% endhighlight %}
 
 and then opening [http://localhost:8000/](http://localhost:8000/) in a browser window. `./ser` is a shortcut provided for the command "python manage.py runserver 0.0.0.0:8000" used frequently to start the local server.
 
@@ -37,7 +43,9 @@ and then opening [http://localhost:8000/](http://localhost:8000/) in a browser w
 
 The project also comes with an application named *initial_data*, a model that creates an *admin* user with password *admin* when in development mode and site called http://example.com:8000. The Django admin can be accessed by typing:
 
-    python manage.py loaddata development
+{% highlight bash %}
+python manage.py loaddata development
+{% endhighlight %}
 
 and restarting the server and logging into [http://example.com:8000/admin](http://example.com:8000/admin) after having add example.com to the local hosts file.
 
@@ -47,7 +55,9 @@ Note that the admin/admin user is *not* included in the initial_data.json file, 
 
 A new model (e.g., called *Picture*) can be created with the command:
 
-    ./sta Picture
+{% highlight bash %}
+./sta Picture
+{% endhighlight %}
 
 which extends the default "python manage.py startapp" command by delivering a coherent file structure and providing two basic views for index and show. To include this model in the application:
 
@@ -67,21 +77,21 @@ At this point, all these new views become available:
 The newly created model can be edited at will. For instance, the Picture model can be inherited by [Photologue](http://code.google.com/p/django-photologue/)'s ImageModel in order to have many image-related functions available. For this purpose:
 
 * add the following lines to deploy/requirements.txt:
-
-        pil                   # to use models.ImageField
-        # django-photologue   # to deal with image size, thumbnails
-        # The default photologue does not deal with thumbnail generation on CDN
-        -e git+git://github.com/ff0000/django-photologue@cumulus#egg=django-photologue
-
+{% highlight python %}
+pil                   # to use models.ImageField
+# django-photologue   # to deal with image size, thumbnails
+# The default photologue does not deal with thumbnail generation on CDN
+-e git+git://github.com/ff0000/django-photologue@cumulus#egg=django-photologue
+{% endhighlight %}
 * run the command `./req` to install the new requirements
-
 * add `'photologue',` to `INSTALLED_APPS` in settings.py
-
 * edit apps/pictures/models.py to begin as:
 
-    from django.db import models
-    from photologue.models import ImageModel
-    class Picture(ImageModel):
+{% highlight python %}
+from django.db import models
+from photologue.models import ImageModel
+class Picture(ImageModel):
+{% endhighlight %}
 
 * add `<img src="{{picture.image.url}}" />` to the content in templates/pictures/show.html
 
@@ -89,7 +99,9 @@ The newly created model can be edited at will. For instance, the Picture model c
  
 The next step is to adjust the database in order the include the Photologue fields into the Picture table. Django 1.2 does not provide this command, but this can be obtained by simply running:
 
-    ./syn development
+{% highlight bash %}
+./syn development
+{% endhighlight %}
 
 where `./syn` is a shortcut to:
 
@@ -108,7 +120,9 @@ Whenever the `./syn` command is run, all the data in the database is deleted. Th
 
 For instance, after adding a Picture through the admin interface, this can be stored in a fixture running:
 
-    ./dum pictures development
+{% highlight bash %}
+./dum pictures development
+{% endhighlight %}
 
 where `./dum` is a shortcut for `python manage.py dumpdata` to output the data with the right indentation in the specified environment.
 
@@ -118,8 +132,10 @@ At this point, running `.syn development` again will reset the database and relo
 
 The project created by pypeton also come with a basic integration test suite. The suite can be run by creating an appropriate test database and then running the lettuce command against it for the application:
 
-    python manage.py syncdb --settings=settings_test
-    python manage.py harvest --settings=settings_test -d
+{% highlight bash %}
+python manage.py syncdb --settings=settings_test
+python manage.py harvest --settings=settings_test -d
+{% endhighlight %}
 
 This will pop up an instance of Firefox and execute the basic scenarios specified in apps/movies/features, simply that a movie can be added through the admin interface and that its name will show app in the show page.
 
@@ -127,12 +143,14 @@ This will pop up an instance of Firefox and execute the basic scenarios specifie
 
 The project is now ready to be committed to subversion. Create a remote repository and push the code:
 
-    ssh [user]@[svn_server]
-    sudo /opt/red/bin/make_svn fooapp
-    exit
-    cd ../../ # go back to the fooapp root
-    svn co svn+ssh://[user]@[svn_server]/svn/fooapp .
-    svn add *
+{% highlight bash %}
+ssh [user]@[svn_server]
+sudo /opt/red/bin/make_svn fooapp
+exit
+cd ../../ # go back to the fooapp root
+svn co svn+ssh://[user]@[svn_server]/svn/fooapp .
+svn add *
+{% endhighlight %}
 
 <!-- Here I need help in adding svn:ignore for the virtualenv folders!
 *.pyc
@@ -150,9 +168,10 @@ src
 
 To move the code into production, we create a new instance on Rackspace by using the [rscurl](https://github.com/jsquared/rscurl) command line tool:
 
-    cd .. # go back to the pypeton folder
-    ./rscurl -u ff0000 -a [app_key] -c create-server -i 49 -f 1 -n fooapp-dev
-
+{% highlight bash %}
+cd .. # go back to the pypeton folder
+./rscurl -u ff0000 -a [app_key] -c create-server -i 49 -f 1 -n fooapp-dev
+{% endhighlight %}
 
 where *ff0000* is our Rackspace cloud username and the *app_key* can be obtained from the settings panel on Rackspace. The previous command line generates a "Ubuntu 10.04 LTS (lucid)" machine with 256MB.
 
@@ -169,15 +188,19 @@ Creating a server instance on Rackspace returns an admin password, a public IP a
 
 At this point we follow the instructions for [django-fab-deploy](https://github.com/ff0000/red-fab-deploy):
 
-    ssh-keygen -f fooapp_rsa -N ""
-    mv fooapp_rsa* fooapp/trunk/deploy/
-    mv fooapp/trunk/src/red-fab-deploy/fabfile_example.py fooapp/trunk/fabfile.py
+{% highlight bash %}
+ssh-keygen -f fooapp_rsa -N ""
+mv fooapp_rsa* fooapp/trunk/deploy/
+mv fooapp/trunk/src/red-fab-deploy/fabfile_example.py fooapp/trunk/fabfile.py
+{% endhighlight %}
 
 We replace into fooapp/trunk/fabfile.py the values of INSTANCE\_NAME to fooapp, the value of REPO to [svn_server]/fooapp and the value of SERVERS['DEV'] to ubuntu@[public\_ip]. Then we deploy the current trunk by running:
 <!-- NOTE: this should be extracted from the rscurl response -->
 
-    cd fooapp/trunk
-    fab dev rackspace_as_ec2:"deploy/fooapp_rsa.pub"
+{% highlight bash %}
+cd fooapp/trunk
+fab dev rackspace_as_ec2:"deploy/fooapp_rsa.pub"
+{% endhighlight %}
 
 We enter the Rackspace admin password when required <!-- NOTE: this should be extracted from the rscurl response --> and return every question but "Enter the group name you want to add the user to" where we specify *www-data*
 
@@ -185,7 +208,9 @@ We enter the Rackspace admin password when required <!-- NOTE: this should be ex
 
 We deploy the trunk of the subversion repository to Rackspace running:
 
-    fab dev full_deploy:"trunk" -i deploy/fooapp_rsa 
+{% highlight bash %}
+fab dev full_deploy:"trunk" -i deploy/fooapp_rsa 
+{% endhighlight %}
 
 and answering "yes" to "Is the OS detected correctly (lucid)?". This step takes a while since all the Python requirements are installed on the server. When the machine is about to retrieve the code from subversion, enter your SVN credentials (just press ENTER when *Password for 'ubuntu'* comes up) and specify not to store password unencrypted.
 
@@ -193,12 +218,17 @@ and answering "yes" to "Is the OS detected correctly (lucid)?". This step takes 
 
 We start the nginx server and uWSGI on Rackspace running:
 
-    fab dev web_server_setup web_server_start -i deploy/[your private SSH key here]
+{% highlight bash %}
+fab dev web_server_setup web_server_start -i deploy/[your private SSH key here]
+{% endhighlight %}
+
 
 Then we execute the commands to set up the project database on the production machine:
 
-    fab dev syncdb -i deploy/[your private SSH key here]
-    fab dev manage:"loaddata test" -i deploy/[your private SSH key here]
+{% highlight bash %}
+fab dev syncdb -i deploy/[your private SSH key here]
+fab dev manage:"loaddata test" -i deploy/[your private SSH key here]
+{% endhighlight %}
 
 Finally open up the public IP in the browser and see the application running in production!
 
@@ -206,10 +236,15 @@ Finally open up the public IP in the browser and see the application running in 
 
 When we have to update the code on the production machine, we <!-- NOTE: This step is missing, we should have a way for fab to automatically create a tag when a project is deployed, then deploy that tag and change the /active symlink on the server. Once we have the tag, the commands run by fab would be -->:
 
-    fab dev deploy_project:"tagname" -i deploy/[your private SSH key here] 
-    fab dev make_active:"tagname" -i deploy/[your private SSH key here] 
+{% highlight bash %}
+fab dev deploy_project:"tagname" -i deploy/[your private SSH key here] 
+fab dev make_active:"tagname" -i deploy/[your private SSH key here] 
+{% endhighlight %}
 
 Finally, the web server can be restarted by running:
 
-    fab dev uwsgi_restart -i deploy/[your private SSH key here] 
-    fab dev web_server_restart -i deploy/[your private SSH key here] 
+{% highlight bash %}
+fab dev uwsgi_restart -i deploy/[your private SSH key here] 
+fab dev web_server_restart -i deploy/[your private SSH key here] 
+{% endhighlight %}
+

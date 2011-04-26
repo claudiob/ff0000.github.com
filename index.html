@@ -1,24 +1,12 @@
 ---
-layout: layout
-title: "FF0000 Developers"
+layout: default
+name: FF0000 Developers
 ---
 
-<div class="content">
-{% for page in site.posts limit:1 %}
-<div id="post">
-{% include post_header.html %}
-{{ page.content }}
-</div>
-{% endfor %}
-</div>
-
-<div class="related">
-<h3>All Posts</h3>
-<ul>
 {% for post in site.posts %}
-  <li>
-    <span>{{ post.date | date: "%B %e, %Y" }}</span><a href="{{ post.url }}">{{ post.title }}</a>
-  </li>
+
+ <h1 class="fontface"> <a href="{{ post.url }}" style="color: black; text-decoration: none">{{ post.title }}</a> <span style="font-size: 0.65em; float: right; color: #962e32">/ {{ post.date | date:"%b %d, %Y" }}</span></h1>
+  
+  	{{ post.content | postmorefilter: post.url, "Read more &rarr;" }}
+
 {% endfor %}
-</ul>
-</div>

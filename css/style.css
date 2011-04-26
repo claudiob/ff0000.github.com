@@ -1,0 +1,146 @@
+/* RESET DEFAULT */
+*, html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h5, h5, h6, pre, form, label, fieldset, input, p, blockquote, th, td {margin:0; padding:0}
+address, caption, cite, code, dfn, em, strong, th, var {font-style:normal; font-weight:normal}
+h1, h2, h3, h5, h5, h6  {font-size:100%}
+table                   {border-collapse:collapse; border-spacing:0}
+fieldset, img           {border:0}
+ol, ul, li              {list-style:none}
+caption, th             {text-align:left}
+q:before, q:after       {content:''}
+strong                  {font-weight: bold}
+em                      {font-style: italic}
+ol, ul, li              {list-style:none}
+* a                     {position:relative} 
+a                       {outline:none}        
+a img                   {border:none}     
+
+
+@font-face {
+    font-family: 'YanoneKaffeesatzRegular';
+    src: url('fonts/YanoneKaffeesatz-Regular-webfont.eot');
+    src: url('fonts/YanoneKaffeesatz-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/YanoneKaffeesatz-Regular-webfont.woff') format('woff'),
+         url('fonts/YanoneKaffeesatz-Regular-webfont.ttf') format('truetype'),
+         url('fonts/YanoneKaffeesatz-Regular-webfont.svg#YanoneKaffeesatzRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'YanoneKaffeesatzBold';
+    src: url('fonts/YanoneKaffeesatz-Bold-webfont.eot');
+    src: url('fonts/YanoneKaffeesatz-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/YanoneKaffeesatz-Bold-webfont.woff') format('woff'),
+         url('fonts/YanoneKaffeesatz-Bold-webfont.ttf') format('truetype'),
+         url('fonts/YanoneKaffeesatz-Bold-webfont.svg#YanoneKaffeesatzBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+ul, ol {margin-bottom: 1.2em; margin-left: 1.5em; padding-left: 0.5em;}
+ul li { list-style: disc outside; list-style-image: url(../images/bullet.png); padding-bottom: 0.5em;}
+
+  body {font-size: 1em; font-family: 'Georgia'; margin: 8px;}
+a {font-size: 0.95em;}
+h1 a {font-size: 1em;}
+h1 {margin-top: 0.75em; margin-bottom: 0.75em; font: 2.5em/1em 'YanoneKaffeesatzRegular', sans-serif;letter-spacing: 0; border-bottom: 2px solid black; padding-bottom: 0.5em;}
+h2 {margin-top: 0.75em; margin-bottom: 0.25em; text-transform: uppercase; font: 1.5em/1em 'YanoneKaffeesatzRegular', sans-serif;letter-spacing: 0; padding-bottom: 0.5em; color: #962e32;}
+
+p {font-size: 1.05em; line-height: 1.45em; text-indent: 1em; margin-bottom: 1.2em; }
+	#container {
+		width: 750px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+p.more{font-size:0.85em; text-align:right;text-transform:uppercase; padding-bottom: 1em; border-bottom:dashed 1px #ededed;}
+
+pre, p code{font-family:"Lucida Console","Andale Mono","DejaVu Sans Mono","Monacy","Courier New",monospace; font-size: 0.9em;
+line-height: 1.4em; background-image: url(http://static.../images/grey-stripes.pngworks.com/images/grey-stripes.png);
+background-color:#ededed; padding-left: 0.25em; padding-right: 0.25em;
+}
+
+pre { 
+    font-size: 1.1em;
+    color: #000;
+    padding: 0.5em;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 0.5em;  margin-bottom: 0.5em;
+}
+
+.highlight {
+  overflow: hidden;
+}
+
+.highlight:hover {
+  overflow: auto;
+}
+
+/* Pygments "friendly" theme colors */
+.highlights .hll { background-color: #ffffcc }
+.highlights  { background: #f0f0f0; }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */
