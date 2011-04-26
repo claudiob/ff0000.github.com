@@ -17,11 +17,11 @@ a img                   {border:none}
 
 @font-face {
     font-family: 'YanoneKaffeesatzRegular';
-    src: url('fonts/YanoneKaffeesatz-Regular-webfont.eot');
-    src: url('fonts/YanoneKaffeesatz-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/YanoneKaffeesatz-Regular-webfont.woff') format('woff'),
-         url('fonts/YanoneKaffeesatz-Regular-webfont.ttf') format('truetype'),
-         url('fonts/YanoneKaffeesatz-Regular-webfont.svg#YanoneKaffeesatzRegular') format('svg');
+    src: url(fonts/YanoneKaffeesatz-Regular-webfont.eot);
+    src: url(fonts/YanoneKaffeesatz-Regular-webfont.eot?#iefix) format('embedded-opentype'),
+         url(fonts/YanoneKaffeesatz-Regular-webfont.woff) format('woff'),
+         url(fonts/YanoneKaffeesatz-Regular-webfont.ttf) format('truetype'),
+         url(fonts/YanoneKaffeesatz-Regular-webfont.svg#YanoneKaffeesatzRegular) format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -29,18 +29,18 @@ a img                   {border:none}
 
 @font-face {
     font-family: 'YanoneKaffeesatzBold';
-    src: url('fonts/YanoneKaffeesatz-Bold-webfont.eot');
-    src: url('fonts/YanoneKaffeesatz-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/YanoneKaffeesatz-Bold-webfont.woff') format('woff'),
-         url('fonts/YanoneKaffeesatz-Bold-webfont.ttf') format('truetype'),
-         url('fonts/YanoneKaffeesatz-Bold-webfont.svg#YanoneKaffeesatzBold') format('svg');
+    src: url(fonts/YanoneKaffeesatz-Bold-webfont.eot);
+    src: url(fonts/YanoneKaffeesatz-Bold-webfont.eot?#iefix) format('embedded-opentype'),
+         url(fonts/YanoneKaffeesatz-Bold-webfont.woff) format('woff'),
+         url(fonts/YanoneKaffeesatz-Bold-webfont.ttf) format('truetype'),
+         url(fonts/YanoneKaffeesatz-Bold-webfont.svg#YanoneKaffeesatzBold) format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
 
 ul, ol {margin-bottom: 1.2em; margin-left: 1.5em; padding-left: 0.5em;}
-ul li { list-style: disc outside; list-style-image: url(../images/bullet.png); padding-bottom: 0.5em;}
+ul li { list-style: disc outside; list-style-image: url(images/bullet.png); padding-bottom: 0.5em;}
 
   body {font-size: 1em; font-family: 'Georgia'; margin: 8px;}
 a {font-size: 0.95em;}
@@ -58,7 +58,7 @@ p {font-size: 1.05em; line-height: 1.45em; text-indent: 1em; margin-bottom: 1.2e
 p.more{font-size:0.85em; text-align:right;text-transform:uppercase; padding-bottom: 1em; border-bottom:dashed 1px #ededed;}
 
 pre, p code{font-family:"Lucida Console","Andale Mono","DejaVu Sans Mono","Monacy","Courier New",monospace; font-size: 0.9em;
-line-height: 1.4em; background-image: url(http://static.../images/grey-stripes.pngworks.com/images/grey-stripes.png);
+line-height: 1.4em; background-image: url(images/grey-stripes.png);
 background-color:#ededed; padding-left: 0.25em; padding-right: 0.25em;
 }
 
