@@ -2,9 +2,10 @@
 layout: post
 title: "Creating and deploying Django to Rackspace"
 author: claudiob
+excerpt: "Frequently we need to create a Django project from scratch and push it on a production machine. This post explains how we have reduced the number of manual steps to achieve this goal."
 ---
 
-Frequently we need to create a Django project from scratch and push it on a production machine. This post explains how we have reduced the number of manual steps to achieve this goal. <!--more-->
+Frequently we need to create a Django project from scratch and push it on a production machine. This post explains how we have reduced the number of manual steps to achieve this goal.
 
 ## Creating the blank project
 

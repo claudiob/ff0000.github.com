@@ -7,6 +7,7 @@ name: FF0000 Developers
 
  <h1 class="fontface"> <a href="{{ post.url }}" style="color: black; text-decoration: none">{{ post.title }}</a> <span style="font-size: 0.65em; float: right; color: #962e32">/ {{ post.date | date:"%b %d, %Y" }}</span></h1>
   
-  	{{ post.content | postmorefilter: post.url, "Read more &rarr;" }}
+  	<p>{{ post.excerpt }}</p>
+    <p class='more'><a href='{{ post.url }}'>Read more &rarr;</a></p>
 
 {% endfor %}

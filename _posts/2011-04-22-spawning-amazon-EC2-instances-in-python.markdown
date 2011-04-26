@@ -2,9 +2,10 @@
 layout: post
 title: "Spawning Amazon EC2 instances in Python"
 author: claudiob
+excerpt: "At RED Interactive we create at least five new Amazon EC2 instances for website we work on: one for staging, two for the production database and two for the production code. To keep consistency among these instances, we have created a Python command-line tool called ec2selector that we are now releasing on GitHub as an open source project."
 ---
 
-At RED Interactive we create at least five new Amazon EC2 instances for website we work on: one for staging, two for the production database and two for the production code. To keep consistency among these instances, we have created a Python command-line tool called [ec2selector](https://github.com/ff0000/ec2selector) that we are now releasing on GitHub as an open source project. <!--more-->
+At RED Interactive we create at least five new Amazon EC2 instances for website we work on: one for staging, two for the production database and two for the production code. To keep consistency among these instances, we have created a Python command-line tool called [ec2selector](https://github.com/ff0000/ec2selector) that we are now releasing on GitHub as an open source project.
 
 ## Why boto is not enough
 
