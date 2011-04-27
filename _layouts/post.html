@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
-<h1 class="fontface">{{ page.title }} <span style="font-size: 0.65em; float: right; color: #962e32">/ {{ page.date | date:"%b %d, %Y" }}</span></h1>
-
-  {{ content }}
+      <h1>
+        {{ page.title }} 
+        <span class="date">/ {{ page.date | date:"%b %d, %Y" }}</span>
+      </h1>
+      {{ content }}
